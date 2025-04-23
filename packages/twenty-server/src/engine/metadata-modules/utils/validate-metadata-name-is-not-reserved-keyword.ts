@@ -1,5 +1,3 @@
-import { InvalidMetadataNameException } from 'src/engine/metadata-modules/utils/exceptions/invalid-metadata-name.exception';
-
 const coreObjectNames = [
   'approvedAccessDomain',
   'approvedAccessDomains',
@@ -60,12 +58,12 @@ const reservedKeywords = [
   'relations',
 ];
 
-export const validateMetadataNameIsNotReservedKeywordOrThrow = (
-  name: string,
-) => {
-  if (reservedKeywords.includes(name)) {
-    throw new InvalidMetadataNameException(
-      `The name "${name}" is not available`,
-    );
+export const validateMetadataNameOrAdjust = (name: string): string => {
+  let adjustedName = name;
+
+  if (reservedKeywords.includes(adjustedName)) {
+    adjustedName += '_';
   }
+
+  return adjustedName;
 };
